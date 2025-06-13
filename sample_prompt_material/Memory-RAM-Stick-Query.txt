@@ -1,0 +1,13 @@
+I have 6 PCs in which I plan to install memory.
+
+4 of the PCs have 4 memory DIMM slots.
+
+2 of the PCs have 2 memory DIMM slots.
+
+For all 6 PCs, each DIMM slot supports a maximum of 48 GB.
+
+I have a number of memory sticks totaling of 736 GB.
+
+I plan to max out the memory in 1 of the PCs with 4 memory DIMM slots and also in 1 of the PCs with 2 memory DIMM slots.
+
+For the rest of the PCs, I will use the same GB sized memory stick to fill all available DIMM slots. What is the GB size of the memory stick I should use for the remaining PCs?

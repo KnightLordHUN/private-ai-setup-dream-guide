@@ -1,0 +1,23 @@
+
+DOWNLOADED DATE                 IDENTIFIER                              IMAGE NAME
+2023-03-16                      641385326567612d319bf9ff                ucs-intersight-infra-4gfi.4.2.3b.bin
+2023-03-22                      641b33b96567612d319f3c09                intersight-ucs-server-210c-m6.5.0.4a.bin
+2023-03-30                      6425dde66567612d3122463f                ucs-intersight-infra-4gfi.4.2.3d.bin
+2023-05-18                      6465c4ef65676132015ce347                ucs-intersight-infra-4gfi.4.2.3d.bin
+2023-05-18                      6465d48465676132015e4a22                ucs-intersight-infra-4gfi.4.2.3b.bin
+2023-05-18                      6465ff0065676132016218a3                intersight-ucs-server-210c-m6.5.0.4b.bin
+2023-05-19                      64670be16567613201f661e8                intersight-ucs-server-210c-m6.5.0.4a.bin
+2023-05-19                      64671ce86567613201f877ec                intersight-ucs-server-210c-m6.5.0.4b.bin
+2024-01-16                      65a7087f65676132012b8f07                ucs-intersight-infra-4gfi.4.3.2.230129.bin
+2024-01-16                      65a726e365676132012c069e                intersight-ucs-server-210c-m6.5.2.0.230092.bin
+2024-04-04                      660f42ef656761320124a297                ucs-intersight-infra-4gfi.4.3.3.240007.bin
+2024-04-05                      66102d8e65676132011cb312                intersight-ucs-server-210c-m6.5.2.1.240010.bin
+2024-10-29                      6720f503656761320106b802                ucs-intersight-infra-4gfi.4.3.5.240032.bin
+2024-12-06                      67532ef06567613201f86c70                ucs-intersight-infra-4gfi.4.3.5.240032.bin
+2024-12-06                      67533be56567613201f8966c                intersight-ucs-server-210c-m6.5.3.0.240016.bin
+2025-01-21                      678fe7ec65676132019bf03c                ucs-intersight-infra-4gfi.4.3.5.240040.bin
+
+Regarding the text above, please perform the following tasks:
+
+1. Please create a bordered excel-style table with the text.
+2. Please reformat the text as the command 'clear-firmware-cache --force <IDENTIFIER>' without numbering each line, for an easy copy and paste of the results.

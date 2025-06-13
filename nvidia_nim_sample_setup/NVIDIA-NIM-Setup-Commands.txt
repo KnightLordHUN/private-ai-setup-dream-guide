@@ -1,0 +1,21 @@
+# Set NGC_API_KEY variable below with an NVIDIA API key from build.nvidia.com, for example "export NGC_API_KEY=nvapi-**********IL7", then paste and run the commands on the Ubuntu terminal.
+
+export NGC_API_KEY=
+
+echo "$NGC_API_KEY" | docker login nvcr.io --username '$oauthtoken' --password-stdin
+export LOCAL_NIM_CACHE=~/.cache/nim
+mkdir -p "$LOCAL_NIM_CACHE"
+sudo chmod -R a+w $LOCAL_NIM_CACHE
+docker network create private-ai-setup-network 2>/dev/null
+docker run -d \
+    --name mistral-nvidia-nim-1 \
+    --network private-ai-setup-network \
+    -p 8005:8000 \
+    --gpus all \
+    --shm-size=16GB \
+    -e NGC_API_KEY \
+    -e NIM_SERVED_MODEL_NAME="Mistral Nemo 12B - NIM" \
+    -e NIM_MAX_MODEL_LEN=16384 \
+    -v "$LOCAL_NIM_CACHE:/opt/nim/.cache" \
+    -u $(id -u) \
+    nvcr.io/nim/nv-mistralai/mistral-nemo-12b-instruct:1.2.2
