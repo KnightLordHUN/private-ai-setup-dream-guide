@@ -6,7 +6,7 @@
 </p>  
 <br>
 <p align="center">
-  Whether it's to show off the capabilities of AI to a friend or to sell AI Infrastructure to a business customer, the **Private AI Setup Dream Guide for Demos** automates the installation of the software needed for a local private AI setup, utilizing AI models (LLMs and diffusion models) for use cases such as general assistance, business ideas, coding, image generation, systems administration, marketing, planning, and more.
+  Whether it's to show off the capabilities of AI to a friend or to sell AI Infrastructure to a business customer, the Private AI Setup Dream Guide for Demos automates the installation of the software needed for a local private AI setup, utilizing AI models (LLMs and diffusion models) for use cases such as general assistance, business ideas, coding, image generation, systems administration, marketing, planning, and more.
 </p>
 <br>
 
