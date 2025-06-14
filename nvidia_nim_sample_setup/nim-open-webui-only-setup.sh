@@ -9,7 +9,7 @@
 # Setup the Script Variables
 echo "Setting up the Script Variables..."
 set -o nounset
-OPEN_WEBUI_DEFAULT_MODEL="Mistral Nemo 12B - NIM"
+OPEN_WEBUI_DEFAULT_MODEL="Mistral NeMo 12B - NIM"
 OPEN_WEBUI_CONTAINER_IMAGE="198.18.134.149:5000/open-webui:cuda"
 OPEN_WEBUI_CONTAINER_HOST_PORT=3000
 TARGET_HOST=198.19.5.70
