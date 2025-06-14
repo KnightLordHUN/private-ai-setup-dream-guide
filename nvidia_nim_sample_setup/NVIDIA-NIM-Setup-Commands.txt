@@ -1,4 +1,4 @@
-# Set NGC_API_KEY variable below with an NVIDIA API key from build.nvidia.com, for example "export NGC_API_KEY=nvapi-**********IL7", then paste and run the commands on the Ubuntu terminal.
+# Set the NGC_API_KEY variable below with an NVIDIA API key from build.nvidia.com, for example "export NGC_API_KEY=nvapi-**********IL7", then paste and run the commands on the Ubuntu terminal.
 
 export NGC_API_KEY=
 
@@ -14,7 +14,7 @@ docker run -d \
     --gpus all \
     --shm-size=16GB \
     -e NGC_API_KEY \
-    -e NIM_SERVED_MODEL_NAME="Mistral Nemo 12B - NIM" \
+    -e NIM_SERVED_MODEL_NAME="Mistral NeMo 12B - NIM" \
     -e NIM_MAX_MODEL_LEN=16384 \
     -v "$LOCAL_NIM_CACHE:/opt/nim/.cache" \
     -u $(id -u) \
