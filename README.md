@@ -142,7 +142,7 @@ To run the <ins>**Stable Diffusion XL 1.0 Base aka SDXL**</ins> model, perform t
 
 - Using FLUX.1 Schnell to generate an image with the prompt "a robot sitting on a bench"...
 <br><br>
-![FLUX.1 Schnell Image Generation](./src/assets/image-model-setup-sample-003.png "FLUX.1 Schnell Image Generation")
+![FLUX.1 Schnell Image Generation](./src/assets/image-model-setup-sample-005.png "FLUX.1 Schnell Image Generation")
 <br><br>
 
 - Using Stable Diffusion XL Base 1.0 to generate an image with the prompt "a ferrari driving down the city streets of tokyo"...
