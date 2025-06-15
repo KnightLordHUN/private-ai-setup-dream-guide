@@ -1,3 +1,5 @@
+# Setup Commands for NVIDIA NIM Docker Container with Mistral NeMo 12B Instruct
+
 # Set the NGC_API_KEY variable below with an NVIDIA API key from build.nvidia.com, for example "export NGC_API_KEY=nvapi-**********IL7", then paste and run the commands on the Ubuntu terminal.
 
 export NGC_API_KEY=
