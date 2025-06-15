@@ -36,83 +36,82 @@ All of the AI models are downloaded from [Hugging Face](https://huggingface.co) 
 ## How To Use
 1. Please ensure that the above [**Default System Requirements**](https://github.com/ugo-emekauwa/private-ai-setup-dream-guide#default-system-requirements) have been met.
 2. Git clone or download the **Private AI Setup Dream Guide for Demos** repository:
-    ```
-    git clone https://github.com/ugo-emekauwa/private-ai-setup-dream-guide
-    ```
+  ```
+  git clone https://github.com/ugo-emekauwa/private-ai-setup-dream-guide
+  ```
 3. Change directories to the private-ai-setup-dream-guide folder.
-    ```
-    cd private-ai-setup-dream-guide
-    ```
+  ```
+  cd private-ai-setup-dream-guide
+  ```
 4. Choose and run a pre-setup script to install all of the software packages and drivers needed to run the AI models. You have two options:
 
-    - Option 1 - **Full Pre-Setup** (full-pre-setup.sh): This will install the software packages and drivers needed to begin deploying the AI models. In addition, all of the default AI models and all of the Docker containers needed to run the AI models will also be downloaded. Depending on your Internet connection speed, the downloads may take a while, about 40-60 mins. Using the Full Pre-Setup option will take more time upfront, but will save you time later.
-    ```
-    chmod +x full-pre-setup.sh
-    ./full-pre-setup.sh
-    ```
+  - Option 1 - **Full Pre-Setup**: This will install the software packages and drivers needed to begin deploying the AI models. In addition, all of the default AI models and all of the Docker containers needed to run the AI models will also be downloaded. Depending on your Internet connection speed, the downloads may take a while, about 40-60 mins. Using the Full Pre-Setup option will take more time upfront, but will save you time later. **`WARNING:`** A server reboot is performed at the end of the script, so please save any work before starting.
+  ```
+  chmod +x full-pre-setup.sh
+  ./full-pre-setup.sh
+  ```
 
-    - Option 2 - **Quick Pre-Setup** (quick-pre-setup.sh) - This will install only the software packages and drivers needed to quickly begin deploying the AI models. None of the default AI models or Docker containers will be downloaded initially. Depending on your Internet connection speed, the downloads may take about 10-15 mins. The AI models and Docker containers will be downloaded later as each type of AI model is deployed via the corresponding script.
-    ```
-    chmod +x full-pre-setup.sh
-    ./quick-pre-setup.sh
-    ```
+  - Option 2 - **Quick Pre-Setup**: This will install only the software packages and drivers needed to quickly begin deploying the AI models. None of the default AI models or Docker containers will be downloaded initially. Depending on your Internet connection speed, the downloads may take about 10-15 mins. The AI models and Docker containers will be downloaded later as each type of AI model is deployed via the corresponding script. **`WARNING:`** A server reboot is performed at the end of the script, so please save any work before starting.
+  ```
+  chmod +x full-pre-setup.sh
+  ./quick-pre-setup.sh
+  ```
 5. Choose and run a model setup deployment script. There are several options based on what type of model you want to run:
-    - **Single Chat Model Setup**: This script sets up an environment with one chat LLM. Meta Llama 3.1 8B Instruct has been chosen as the default chat AI model. Open WebUI provides a user-friendly GUI web interface with inferencing by vLLM.
-    ```
-    ./chat-model-single-setup.sh
-    ```
+  - **Single Chat Model Setup**: This script sets up an environment with one chat LLM. Meta Llama 3.1 8B Instruct has been chosen as the default chat AI model. Open WebUI provides a user-friendly GUI web interface with inferencing by vLLM.
+  ```
+  ./chat-model-single-setup.sh
+  ```
 
-    - **Dual Chat Model Setup**: This script sets up an environment with two chat LLMs. Meta Llama 3.1 8B Instruct and Qwen 2.5 Coder 32B Instruct have been chosen as the default chat AI models. Open WebUI provides a user-friendly GUI web interface with inferencing by vLLM.
-    ```
-    ./chat-model-dual-setup.sh
-    ```
+  - **Dual Chat Model Setup**: This script sets up an environment with two chat LLMs. Meta Llama 3.1 8B Instruct and Qwen 2.5 Coder 32B Instruct have been chosen as the default chat AI models. Open WebUI provides a user-friendly GUI web interface with inferencing by vLLM.
+  ```
+  ./chat-model-dual-setup.sh
+  ```
 
-    - **Vision Model Setup**: This script sets up an environment with one vision language model. Qwen 2.5 VL 7B Instruct has been chosen as the default vision AI model. Open WebUI provides a user-friendly GUI web interface with inferencing by SGLang.
-    ```
-    ./vision-model-setup.sh
-    ```
+  - **Vision Model Setup**: This script sets up an environment with one vision language model. Qwen 2.5 VL 7B Instruct has been chosen as the default vision AI model. Open WebUI provides a user-friendly GUI web interface with inferencing by SGLang.
+  ```
+  ./vision-model-setup.sh
+  ```
 
-    - **Reasoning Model Setup with Qwen 3 32B**: This script sets up an environment with one reasoning LLM. Qwen 3 32B has been chosen as the default reasoning AI model. Open WebUI provides a user-friendly GUI web interface with inferencing by vLLM.
-    ```
-    ./reasoning-model-setup.sh
-    ```
+  - **Reasoning Model Setup with Qwen 3 32B**: This script sets up an environment with one reasoning LLM. Qwen 3 32B has been chosen as the default reasoning AI model. Open WebUI provides a user-friendly GUI web interface with inferencing by vLLM.
+  ```
+  ./reasoning-model-setup.sh
+  ```
+  **`TIP:`** The Qwen 3 reasoning models provide the capability to dynamically turn off thinking mode if a faster, but potentially less detailed and in-depth response is desired (similar to regular chat models). Use the tag `/no think` when prompting to temporarily disable thinking mode.
 
-    **`TIPS:`**
-        - The Qwen 3 reasoning models provide the capability to dynamically turn off thinking mode if a faster, but potentially less detailed and in-depth response is desired (similar to regular chat models). Use the tag `/no think` when prompting to temporarily disable thinking mode.
+  - **Reasoning Model Setup with DeepSeek-R1**: This script sets up an environment with one reasoning LLM. DeepSeek-R1 (Distilled Qwen 14B) has been chosen as the default reasoning AI model. Open WebUI provides a user-friendly GUI web interface with inferencing by vLLM.
+  ```
+  ./reasoning-model-setup-alt.sh
+  ```
 
-    - **Reasoning Model Setup with DeepSeek-R1**: This script sets up an environment with one reasoning LLM. DeepSeek-R1 (Distilled Qwen 14B) has been chosen as the default reasoning AI model. Open WebUI provides a user-friendly GUI web interface with inferencing by vLLM.
-    ```
-    ./reasoning-model-setup-alt.sh
-    ```
+  - **Image Model Setup**: This script sets up an environment with two AI image generation models, FLUX.1 Schnell and Stable Diffusion XL 1.0 Base. Stable Diffusion WebUI Forge provides a user-friendly GUI web interface and inferencing. **`NOTE:`** FLUX.1 Schnell is a gated model, meaning access must be given before it can be downloaded. To get access, setup an account on [Hugging Face](https://huggingface.co), gain access at https://huggingface.co/black-forest-labs/FLUX.1-schnell, and then setup a Hugging Face access token in your account. The access token only needs READ permissions. Finally, edit the **image-model-setup.sh** script to include your access token by setting the variable **HUGGING_FACE_ACCESS_TOKEN**. For example `HUGGING_FACE_ACCESS_TOKEN=hf_******************************IL7`. Otherwise, the script can still be used to setup the Stable Diffusion XL 1.0 Base model.
+  ```
+  ./image-model-setup.sh
+  ```
 
-    - **Image Model Setup**: This script sets up an environment with two AI image generation models, FLUX.1 Schnell and Stable Diffusion XL 1.0 Base. Stable Diffusion WebUI Forge provides a user-friendly GUI web interface and inferencing. NOTE: FLUX.1 Schnell is a gated model, meaning access must be given before it can be downloaded. To get access, setup an account on [Hugging Face](https://huggingface.co), gain access at https://huggingface.co/black-forest-labs/FLUX.1-schnell, and then setup a Hugging Face access token in your account. The access token only needs READ permissions. Finally, edit the script to include your access token. Otherwise, the script can still be used to setup the Stable Diffusion XL 1.0 Base model.
-    ```
-    ./image-model-setup.sh
-    ```
-    **`NOTE:`** To run the **FLUX.1 Schnell** model, perform the following steps in Stable Diffusion WebUI Forge:
-        1. In the menu under the **UI** section, select the '**flux**' radio button preset.
-        2. Under the **Checkpoint** section, select **flux1-schnell.safetensors**.
-        3. Under the **VAE/Text Encoder** section, select **ae.safetensors**, **clip_l.safetensors**, and **t5xxl_fp16.safetensors** from the list. All must be selected.
-        4. You're now ready to begin generating images. Under the **Txt2img** section tab, enter your prompt, then click the Generate button.
-        <br><br>
-        ![FLUX.1 Schnell Settings For SD WebUI Forge](./src/assets/image-model-setup-sample-016-flux.png "FLUX.1 Schnell Settings For SD WebUI Forge")
-        <br><br>
+To run the <ins>**FLUX.1 Schnell**</ins> model, perform the following steps in Stable Diffusion WebUI Forge:
+  1. In the menu under the **UI** section, select the '**flux**' radio button preset.
+  2. Under the **Checkpoint** section, select **flux1-schnell.safetensors**.
+  3. Under the **VAE/Text Encoder** section, select **ae.safetensors**, **clip_l.safetensors**, and **t5xxl_fp16.safetensors** from the list. All must be selected.
+  4. You're now ready to begin generating images. Under the **Txt2img** section tab, enter your prompt, then click the Generate button.
+  <br><br>
+  ![FLUX.1 Schnell Settings For SD WebUI Forge](./src/assets/image-model-setup-sample-016-flux.png "FLUX.1 Schnell Settings For SD WebUI Forge")
+  <br><br>
 
-    **`NOTE:`** To run the **Stable Diffusion XL 1.0 Base** model, perform the following steps in Stable Diffusion WebUI Forge:
-        1. In the menu under the **UI** section, select the '**xl**' radio button preset.
-        2. Under the **Checkpoint** section, select **sd_xl_base_1.0.safetensors**.
-        3. Under the **VAE/Text Encoder** section, ensure the selection box is empty. If any entries were previously selected, use the **X** button to clear them.
-        4. You're now ready to begin generating images. Under the **Txt2img** section tab, enter your prompt, then click the Generate button.
-        <br><br>
-        ![SDXL Settings For SD WebUI Forge](./src/assets/image-model-setup-sample-012-sdxl.png "SDXL Settings For SD WebUI Forge")
-        <br><br>
+To run the <ins>**Stable Diffusion XL 1.0 Base aka SDXL**</ins> model, perform the following steps in Stable Diffusion WebUI Forge:
+  1. In the menu under the **UI** section, select the '**xl**' radio button preset.
+  2. Under the **Checkpoint** section, select **sd_xl_base_1.0.safetensors**.
+  3. Under the **VAE/Text Encoder** section, ensure the selection box is empty. If any entries were previously selected, use the **X** button to clear them.
+  4. You're now ready to begin generating images. Under the **Txt2img** section tab, enter your prompt, then click the Generate button.
+  <br><br>
+  ![SDXL Settings For SD WebUI Forge](./src/assets/image-model-setup-sample-012-sdxl.png "SDXL Settings For SD WebUI Forge")
+  <br><br>
 
-    **`TIPS:`**
-        - The first image generated will take longer than subsequent images, as the image model is initially loaded into the GPU VRAM.
-        - The amount of GPU VRAM used can be adjusted under the **GPU Weights (MB)** section. Adjust this setting if you have any issues with GPU VRAM usage.
-        - Under the **Generation** section tab, you may want to start with a lower number for **Sampling steps**, such as **10**. Lower Sampling steps will result in faster image generation, while higher Sampling steps may produce more detailed and accurate images. Play around with the settings to see what works best for your use case.
-        - By default, each image generation with the same prompt will produce a different image. In the **Generation** section tab, under the **Seed** Section, use the button with the recycle icon to persist an image. This allows for the same image to be reproduced and modified upon. Use the button with the dice icon to return to random image generations.
-        - Under the Generate button, the drop-down menu can be used to apply filters to the image generation.
+  **`TIPS:`**
+  - The first image generated will take longer than subsequent images, as the image model is initially loaded into the GPU VRAM.
+  - The amount of GPU VRAM used can be adjusted under the **GPU Weights (MB)** section. Adjust this setting if you have any issues with GPU VRAM usage.
+  - Under the **Generation** section tab, you may want to start with a lower number for **Sampling steps**, such as **10**. Lower Sampling steps will result in faster image generation, while higher Sampling steps may produce more detailed and accurate images. Play around with the settings to see what works best for your use case.
+  - By default, each image generation with the same prompt will produce a different image. In the **Generation** section tab, under the **Seed** Section, use the button with the recycle icon to persist an image. This allows for the same image to be reproduced and modified upon. Use the button with the dice icon to return to random image generations.
+  - Under the Generate button, the drop-down menu can be used to apply filters to the image generation.
 
 ## Sample Demonstration Work Flow Steps
 - Exploring the chat model options with Meta Llama 3.1 and Qwen 2.5 Coder...
