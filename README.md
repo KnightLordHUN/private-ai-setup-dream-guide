@@ -174,7 +174,7 @@ To run the <ins>**Stable Diffusion XL 1.0 Base aka SDXL**</ins> model, perform t
 ## Demonstrations and Learning Labs
 Private AI Setup Dream Guide for Demos is used in AI, Cisco UCS, and Intersight demonstrations and labs on Cisco dCloud:
 
-- [Running Gen AI and LLMs on Cisco UCS X-Series with NVIDIA GPUs v2](https://dcloud2.cisco.com/demo/ai-workloads-on-cisco-ucs-x-series-v1) - _Coming Soon_
+- [Run Gen AI and LLMs on Cisco UCS X-Series with NVIDIA GPUs](https://dcloud2.cisco.com/demo/run-gen-ai-and-llms-on-cisco-ucs-x-series)
 <br><br>
 
 ![Cisco UCS X-Series Lab Topology](./src/assets/Cisco_UCS_X-Series_Lab_Topology_2.png "Cisco UCS X-Series Lab Topology")
