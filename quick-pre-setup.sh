@@ -54,8 +54,12 @@ sudo apt-get update
 sudo apt-get install -y cuda-toolkit-12-5
 
 # Install the NVIDIA Driver (as of 2-12-25, will also automatically install latest NVIDIA open kernel driver (nvidia-open))
-echo "Installing the NVIDIA Driver..."
-sudo apt-get install -y cuda-drivers-555
+if grep -qiE "(microsoft|wsl)" /proc/version; then
+    echo "Microsoft WSL has been detected, skipping NVIDIA driver installation for Ubuntu, as host Windows NVIDIA drivers should be used..."
+else
+    echo "Installing the NVIDIA Driver..."
+    sudo apt-get install -y cuda-drivers-555
+fi
 
 # Uninstall Previous Docker Installations
 echo "Uninstalling Previous Docker Installations..."
@@ -123,6 +127,8 @@ fi
 
 # Install NVTOP
 echo "Installing NVTOP..."
+sudo add-apt-repository -y ppa:flexiondotorg/nvtop
+sudo apt update
 sudo apt-get install -y nvtop
 
 # Install Python 3 pip

@@ -12,6 +12,7 @@
 # Setup the Script Variables
 echo "Setting up the Script Variables..."
 set -o nounset
+TARGET_HOST=127.0.0.1
 VISION_MODEL_1_NAME="Qwen 2.5 VL, 7B"
 VISION_MODEL_1_HUGGINGFACE_DOWNLOAD_SOURCE="Qwen/Qwen2.5-VL-7B-Instruct"
 VISION_MODEL_1_SGLANG_FRACTION_OF_GPU_MEMORY_FOR_STATIC_ALLOCATION=0.75
@@ -22,7 +23,7 @@ VISION_MODEL_1_SGLANG_CONTAINER_IMAGE="lmsysorg/sglang:v0.4.6.post4-cu124"
 VISION_MODEL_1_SGLANG_CONTAINER_HOST_PORT=8003
 OPEN_WEBUI_CONTAINER_IMAGE="ghcr.io/open-webui/open-webui:cuda"
 OPEN_WEBUI_CONTAINER_HOST_PORT=3000
-TARGET_HOST=127.0.0.1
+OPEN_WEBUI_CONTAINER_SPECIFIC_TARGET_HOST="host.docker.internal"
 STOP_AND_REMOVE_PREEXISTING_PRIVATE_AI_CONTAINERS=true
 AI_MODEL_LOADING_TIMEOUT=300
 HUGGING_FACE_ACCESS_TOKEN=
@@ -45,10 +46,6 @@ else
     HF_HUB_ENABLE_HF_TRANSFER=1 huggingface-cli download $VISION_MODEL_1_HUGGINGFACE_DOWNLOAD_SOURCE --local-dir $HOME/ai_models/$VISION_MODEL_1_HUGGINGFACE_DOWNLOAD_LOCAL_SUB_DIRECTORY
 fi
 
-# Setup Docker Container Private AI Network
-echo "Setting up Docker Container Private AI Network..."
-sudo docker network create private-ai-setup-network 2>/dev/null
-
 # Stop and Remove Preexisting Private AI Containers
 if $STOP_AND_REMOVE_PREEXISTING_PRIVATE_AI_CONTAINERS; then
     echo "Stopping Preexisting Private AI Containers..."
@@ -66,7 +63,6 @@ echo "Setting up the SGLang Container with $VISION_MODEL_1_NAME..."
 if [ -z "$VISION_MODEL_1_SGLANG_MAX_CONTEXT_LENGTH" ]; then
     sudo docker run -d \
         --name sglang-vision-model-1 \
-        --network private-ai-setup-network \
         -p $VISION_MODEL_1_SGLANG_CONTAINER_HOST_PORT:30000 \
         --gpus all \
         --shm-size $VISION_MODEL_1_SGLANG_CONTAINER_SHARED_MEMORY_SIZE \
@@ -83,7 +79,6 @@ if [ -z "$VISION_MODEL_1_SGLANG_MAX_CONTEXT_LENGTH" ]; then
 else
     sudo docker run -d \
         --name sglang-vision-model-1 \
-        --network private-ai-setup-network \
         -p $VISION_MODEL_1_SGLANG_CONTAINER_HOST_PORT:30000 \
         --gpus all \
         --shm-size $VISION_MODEL_1_SGLANG_CONTAINER_SHARED_MEMORY_SIZE \
@@ -139,13 +134,12 @@ done
 echo "Setting up the Open WebUI Container..."
 sudo docker run -d \
     --name open-webui-1 \
-    --network private-ai-setup-network \
     -p $OPEN_WEBUI_CONTAINER_HOST_PORT:8080 \
     --gpus all \
     -e WEBUI_AUTH="false" \
     -e WEBUI_NAME="Private AI" \
-    -e OPENAI_API_BASE_URLS="http://vllm-chat-model-1:8000/v1;http://vllm-chat-model-2:8000/v1;http://sglang-vision-model-1:30000/v1;http://vllm-reasoning-model-1:8000/v1" \
-    -e OPENAI_API_KEY="vllm-chat-model-1-sample-key;vllm-chat-model-2-sample-key;sglang-vision-model-1-sample-key;vllm-reasoning-model-1-sample-key" \
+    -e OPENAI_API_BASE_URLS="http://$OPEN_WEBUI_CONTAINER_SPECIFIC_TARGET_HOST:$VISION_MODEL_1_SGLANG_CONTAINER_HOST_PORT/v1" \
+    -e OPENAI_API_KEY="sglang-vision-model-1-sample-key" \
     -e DEFAULT_MODELS="$VISION_MODEL_1_NAME" \
     -e RAG_EMBEDDING_MODEL="sentence-transformers/paraphrase-MiniLM-L6-v2" \
     -e ENABLE_OLLAMA_API="false" \

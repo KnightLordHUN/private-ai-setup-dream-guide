@@ -9,9 +9,9 @@
 # Setup the Script Variables
 echo "Setting up the Script Variables..."
 set -o nounset
+TARGET_HOST=127.0.0.1
 SD_WEBUI_FORGE_CONTAINER_IMAGE="nykk3/stable-diffusion-webui-forge:latest"
 SD_WEBUI_FORGE_CONTAINER_HOST_PORT=7860
-TARGET_HOST=127.0.0.1
 STOP_AND_REMOVE_PREEXISTING_PRIVATE_AI_CONTAINERS=true
 HUGGING_FACE_ACCESS_TOKEN=
 
@@ -37,10 +37,6 @@ HF_HUB_ENABLE_HF_TRANSFER=1 huggingface-cli download lllyasviel/flux_text_encode
 HF_HUB_ENABLE_HF_TRANSFER=1 huggingface-cli download lllyasviel/flux_text_encoders --include "t5xxl_fp16.safetensors" --local-dir  $HOME/ai_models/stable_diffusion/models/text_encoder
 #HF_HUB_ENABLE_HF_TRANSFER=1 huggingface-cli download lllyasviel/flux_text_encoders --include "t5xxl_fp8_e4m3fn.safetensors" --local-dir  $HOME/ai_models/stable_diffusion/models/text_encoder
 
-# Setup Docker Container Private AI Network
-echo "Setting up Docker Container Private AI Network..."
-sudo docker network create private-ai-setup-network 2>/dev/null
-
 # Stop and Remove Preexisting Private AI Containers
 if $STOP_AND_REMOVE_PREEXISTING_PRIVATE_AI_CONTAINERS; then
     echo "Stopping Preexisting Private AI Containers..."
@@ -57,7 +53,6 @@ sleep 5
 echo "Setting up the Container with Stable Diffusion WebUI Forge..."
 sudo docker run -d \
     --name sd-webui-forge-1 \
-    --network private-ai-setup-network \
     -p $SD_WEBUI_FORGE_CONTAINER_HOST_PORT:7860 \
     -v $HOME/ai_models/stable_diffusion/outputs/:/app/stable-diffusion-webui/outputs/ \
     -v $HOME/ai_models/stable_diffusion/models/:/app/stable-diffusion-webui/models/ \

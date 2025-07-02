@@ -12,6 +12,7 @@
 # Setup the Script Variables
 echo "Setting up the Script Variables..."
 set -o nounset
+TARGET_HOST=127.0.0.1
 CHAT_MODEL_1_NAME="Meta Llama 3.1, 8B"
 CHAT_MODEL_1_HUGGINGFACE_DOWNLOAD_SOURCE="RedHatAI/Meta-Llama-3.1-8B-Instruct-FP8-dynamic"
 CHAT_MODEL_1_VLLM_MAX_CONTEXT_LENGTH=8192
@@ -20,7 +21,7 @@ CHAT_MODEL_1_VLLM_CONTAINER_IMAGE="vllm/vllm-openai:v0.8.5.post1"
 CHAT_MODEL_1_VLLM_CONTAINER_HOST_PORT=8001
 OPEN_WEBUI_CONTAINER_IMAGE="ghcr.io/open-webui/open-webui:cuda"
 OPEN_WEBUI_CONTAINER_HOST_PORT=3000
-TARGET_HOST=127.0.0.1
+OPEN_WEBUI_CONTAINER_SPECIFIC_TARGET_HOST="host.docker.internal"
 STOP_AND_REMOVE_PREEXISTING_PRIVATE_AI_CONTAINERS=true
 AI_MODEL_LOADING_TIMEOUT=300
 HUGGING_FACE_ACCESS_TOKEN=
@@ -43,10 +44,6 @@ else
     HF_HUB_ENABLE_HF_TRANSFER=1 huggingface-cli download $CHAT_MODEL_1_HUGGINGFACE_DOWNLOAD_SOURCE --local-dir $HOME/ai_models/$CHAT_MODEL_1_HUGGINGFACE_DOWNLOAD_LOCAL_SUB_DIRECTORY
 fi
 
-# Setup Docker Container Private AI Network
-echo "Setting up Docker Container Private AI Network..."
-sudo docker network create private-ai-setup-network 2>/dev/null
-
 # Stop and Remove Preexisting Private AI Containers
 if $STOP_AND_REMOVE_PREEXISTING_PRIVATE_AI_CONTAINERS; then
     echo "Stopping Preexisting Private AI Containers..."
@@ -64,7 +61,6 @@ echo "Setting up the vLLM Container with $CHAT_MODEL_1_NAME..."
 if [ -z "$CHAT_MODEL_1_VLLM_MAX_CONTEXT_LENGTH" ]; then
     sudo docker run -d \
         --name vllm-chat-model-1 \
-        --network private-ai-setup-network \
         -p $CHAT_MODEL_1_VLLM_CONTAINER_HOST_PORT:8000 \
         --runtime nvidia \
         --gpus all \
@@ -77,7 +73,6 @@ if [ -z "$CHAT_MODEL_1_VLLM_MAX_CONTEXT_LENGTH" ]; then
 else
     sudo docker run -d \
         --name vllm-chat-model-1 \
-        --network private-ai-setup-network \
         -p $CHAT_MODEL_1_VLLM_CONTAINER_HOST_PORT:8000 \
         --runtime nvidia \
         --gpus all \
@@ -129,13 +124,12 @@ done
 echo "Setting up the Open WebUI Container..."
 sudo docker run -d \
     --name open-webui-1 \
-    --network private-ai-setup-network \
     -p $OPEN_WEBUI_CONTAINER_HOST_PORT:8080 \
     --gpus all \
     -e WEBUI_AUTH="false" \
     -e WEBUI_NAME="Private AI" \
-    -e OPENAI_API_BASE_URLS="http://vllm-chat-model-1:8000/v1;http://vllm-chat-model-2:8000/v1;http://sglang-vision-model-1:30000/v1;http://vllm-reasoning-model-1:8000/v1" \
-    -e OPENAI_API_KEY="vllm-chat-model-1-sample-key;vllm-chat-model-2-sample-key;sglang-vision-model-1-sample-key;vllm-reasoning-model-1-sample-key" \
+    -e OPENAI_API_BASE_URLS="http://$OPEN_WEBUI_CONTAINER_SPECIFIC_TARGET_HOST:$CHAT_MODEL_1_VLLM_CONTAINER_HOST_PORT/v1" \
+    -e OPENAI_API_KEY="vllm-chat-model-1-sample-key" \
     -e DEFAULT_MODELS="$CHAT_MODEL_1_NAME" \
     -e RAG_EMBEDDING_MODEL="sentence-transformers/paraphrase-MiniLM-L6-v2" \
     -e ENABLE_OLLAMA_API="false" \
