@@ -8,10 +8,8 @@ echo "$NGC_API_KEY" | docker login nvcr.io --username '$oauthtoken' --password-s
 export LOCAL_NIM_CACHE=~/.cache/nim
 mkdir -p "$LOCAL_NIM_CACHE"
 sudo chmod -R a+w $LOCAL_NIM_CACHE
-docker network create private-ai-setup-network 2>/dev/null
 docker run -d \
     --name mistral-nvidia-nim-1 \
-    --network private-ai-setup-network \
     -p 8005:8000 \
     --gpus all \
     --shm-size=16GB \
