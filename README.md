@@ -28,8 +28,8 @@ All of the AI models are downloaded from [Hugging Face](https://huggingface.co) 
 - [SGLang](https://github.com/sgl-project/sglang) via Docker Container
 
 ## Default System Requirements (As Tested)
-- Ubuntu 22.04.x Linux Operating System. Bare-metal installs are highly recommended.
-- NVIDIA GPU supported by CUDA 12.5 or greater. The chosen default AI models were tested on an NVIDIA L40S GPU which has 48 GB of VRAM and supports FP8 precision. The AI models can be easily changed in the scripts to support different GPU models with lower or higher VRAM. An RTX 4090 has also been tested with the image models.
+- Ubuntu 22.04.x Linux Operating System. Bare-metal and WSL (Windows Subsystem for Linux) installations have been tested.
+- NVIDIA GPU supported by CUDA 12.5 or greater. The chosen default AI models were tested on an NVIDIA L40S GPU which has 48 GB of VRAM and supports FP8 precision. The AI models can be easily changed in the scripts to support different GPU models with lower or higher VRAM. An NVIDIA RTX 4090 has also been tested.
 - At least 64 GB of system RAM is recommended. Lower system RAM may work, but has not been tested at this time.
 - 205 GB of storage space. The stated storage space is based on deploying all of the chosen default AI models and Docker containers. The AI models can be easily changed in the scripts to support different storage space availability. Lower storage requirements will work if not all AI models and Docker containers are deployed.
 
