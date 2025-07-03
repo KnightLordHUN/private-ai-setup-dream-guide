@@ -39,6 +39,10 @@ echo "Starting the AI Chat Model Dual Setup..."
 echo "Creating the 'ai_models' Folder in the $HOME Directory..."
 mkdir -p $HOME/ai_models
 
+# Update the Permissions of the 'ai_models' Folder
+echo "Updating the Permissions of the 'ai_models' Folder..."
+sudo chmod -R a+r $HOME/ai_models
+
 # Define the Hugging Face Download Local Sub-Directories
 CHAT_MODEL_1_HUGGINGFACE_DOWNLOAD_LOCAL_SUB_DIRECTORY="${CHAT_MODEL_1_HUGGINGFACE_DOWNLOAD_SOURCE##*/}"
 CHAT_MODEL_2_HUGGINGFACE_DOWNLOAD_LOCAL_SUB_DIRECTORY="${CHAT_MODEL_2_HUGGINGFACE_DOWNLOAD_SOURCE##*/}"

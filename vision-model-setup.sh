@@ -35,6 +35,10 @@ echo "Starting the AI Vision Language Model Setup..."
 echo "Creating the 'ai_models' Folder in the $HOME Directory..."
 mkdir -p $HOME/ai_models
 
+# Update the Permissions of the 'ai_models' Folder
+echo "Updating the Permissions of the 'ai_models' Folder..."
+sudo chmod -R a+r $HOME/ai_models
+
 # Define the Hugging Face Download Local Sub-Directories
 VISION_MODEL_1_HUGGINGFACE_DOWNLOAD_LOCAL_SUB_DIRECTORY="${VISION_MODEL_1_HUGGINGFACE_DOWNLOAD_SOURCE##*/}"
 
