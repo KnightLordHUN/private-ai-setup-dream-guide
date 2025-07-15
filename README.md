@@ -27,10 +27,10 @@ All of the AI models are downloaded from [Hugging Face](https://huggingface.co) 
 - [vLLM](https://github.com/vllm-project/vllm) via Docker Container
 - [SGLang](https://github.com/sgl-project/sglang) via Docker Container
 
-## Default System Requirements (As Tested)
-- Ubuntu 22.04.x Linux Operating System. Bare-metal and WSL (Windows Subsystem for Linux) installations have been tested.
-- NVIDIA GPU supported by CUDA 12.5 or greater. The chosen default AI models were tested on an NVIDIA L40S GPU which has 48 GB of VRAM and supports FP8 precision. The AI models can be easily changed in the scripts to support different GPU models with lower or higher VRAM. An NVIDIA RTX 4090 has also been tested.
-- At least 64 GB of system RAM is recommended. Lower system RAM may work, but has not been tested at this time.
+## Default System Requirements
+- Ubuntu 22.04.x Linux Operating System on bare-metal or WSL (Windows Subsystem for Linux).
+- NVIDIA GPU supported by CUDA 12.5 or greater. The chosen default AI models were tested on an NVIDIA L40S GPU which has 48 GB of VRAM and supports FP8 precision. The AI models can be easily changed in the scripts to support different GPU models with lower or higher VRAM. An NVIDIA RTX 4090 with 24 GB of VRAM has also been tested.
+- At least 32 GB of system RAM is recommended.
 - 205 GB of storage space. The stated storage space is based on deploying all of the chosen default AI models and Docker containers. The AI models can be easily changed in the scripts to support different storage space availability. Lower storage requirements will work if not all AI models and Docker containers are deployed.
 
 ## How To Use
@@ -83,7 +83,7 @@ All of the AI models are downloaded from [Hugging Face](https://huggingface.co) 
   ./reasoning-model-setup-alt.sh
   ```
 
-  - **Image Model Setup**: This script sets up an environment with two AI image generation models, FLUX.1 Schnell and Stable Diffusion XL 1.0 Base. Stable Diffusion WebUI Forge provides a user-friendly GUI web interface and inferencing. **`NOTE:`** FLUX.1 Schnell is a gated model, meaning access must be given before it can be downloaded. To get access, setup an account on [Hugging Face](https://huggingface.co), gain access at https://huggingface.co/black-forest-labs/FLUX.1-schnell, and then setup a Hugging Face access token in your account. The access token only needs READ permissions. Finally, edit the **image-model-setup.sh** script to include your access token by setting the variable **HUGGING_FACE_ACCESS_TOKEN**. For example `HUGGING_FACE_ACCESS_TOKEN=hf_******************************IL7`. Otherwise, the script can still be used to setup the Stable Diffusion XL 1.0 Base model.
+  - **Image Model Setup**: This script sets up an environment with two AI image generation models, FLUX.1 Schnell and Stable Diffusion XL 1.0 Base. Stable Diffusion WebUI Forge provides a user-friendly GUI web interface and inferencing. **`NOTE:`** FLUX.1 Schnell is a gated model, meaning access must be given before it can be downloaded. To get access, setup an account on [Hugging Face](https://huggingface.co), gain access at https://huggingface.co/black-forest-labs/FLUX.1-schnell, and then setup a Hugging Face access token in your account. The access token only needs READ permissions. Finally, edit the **image-model-setup.sh** script to include your access token by setting the variable **hugging_face_access_token**. For example `hugging_face_access_token=hf_******************************IL7`. Otherwise, the script can still be used to setup the Stable Diffusion XL 1.0 Base model.
   ```
   ./image-model-setup.sh
   ```
