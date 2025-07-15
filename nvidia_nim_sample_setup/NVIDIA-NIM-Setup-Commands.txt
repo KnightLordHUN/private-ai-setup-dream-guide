@@ -2,6 +2,8 @@
 
 # Set the NGC_API_KEY variable below with an NVIDIA API key from build.nvidia.com, for example "export NGC_API_KEY=nvapi-**********IL7", then paste and run the commands on the Ubuntu terminal.
 
+# Depending on the Docker setup, 'sudo' may need to be added in front of the 'docker login' and 'docker run' commands below.
+
 export NGC_API_KEY=
 
 echo "$NGC_API_KEY" | docker login nvcr.io --username '$oauthtoken' --password-stdin
