@@ -9,38 +9,38 @@
 # Setup the Script Variables
 echo "Setting up the Script Variables..."
 set -o nounset
-DISABLE_APPARMOR=true
-DISABLE_FIREWALL=true
-ENABLE_ROOTLESS_DOCKER=false
-ENABLE_SYSTEM_STARTUP_FOR_ROOTLESS_DOCKER=false
+disable_apparmor=true
+disable_firewall=true
+enable_rootless_docker=false
+enable_system_startup_for_rootless_docker=false
 
 # Setup the Log File
 echo "Setting up the Log File..."
 mkdir -p $HOME/logs
-LOG_FILE=$HOME/logs/private-ai-quick-setup.log
-exec > >(tee -i $LOG_FILE) 2>&1
+log_file=$HOME/logs/private-ai-quick-setup.log
+exec > >(tee -i $log_file) 2>&1
 
 # Start the Private AI Quick Pre-Setup
 echo "Starting the Private AI Quick Pre-Setup..."
 
 # Set Permissions for Accessible Private AI Setup Files
 echo "Setting Permissions for Accessible Private AI Setup Files..."
-SCRIPT_DIRECTORY="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+script_directory="$(cd "$(dirname "${bash_source[0]}")" && pwd)"
 private_ai_files=("full-pre-setup.sh" "chat-model-setup.sh" "chat-model-single-setup.sh" "chat-model-dual-setup.sh" "image-model-setup.sh" "vision-model-setup.sh" "reasoning-model-setup.sh" "reasoning-model-setup-alt.sh" "open-webui-only-setup.sh")
 for private_ai_file in "${private_ai_files[@]}"; do
-    target_file="$SCRIPT_DIRECTORY/$private_ai_file"
+    target_file="$script_directory/$private_ai_file"
     [ -e "$target_file" ] && chmod a+x "$target_file"
 done
 
 # Disable AppArmor
-if $DISABLE_APPARMOR; then
+if [ "$disable_apparmor" = "true" ]; then
     echo "Disabling AppArmor..."
     sudo systemctl stop apparmor
     sudo systemctl disable apparmor
 fi
 
 # Disable Firewall
-if $DISABLE_FIREWALL; then
+if [ "$disable_firewall" = "true" ]; then
     echo "Disabling the Firewall..."
     sudo systemctl stop ufw
     sudo systemctl disable ufw
@@ -66,7 +66,7 @@ echo "Uninstalling Previous Docker Installations..."
 sudo snap remove docker --purge
 
 # Install UIDMap (Prerequisite for Docker Rootless Mode)
-if $ENABLE_ROOTLESS_DOCKER; then
+if [ "$enable_rootless_docker" = "true" ]; then
     echo "Installing UIDMap (Prerequisite for Docker Rootless Mode)..."
     sudo apt-get install -y uidmap
 fi
@@ -76,21 +76,23 @@ echo "Installing Docker..."
 curl https://get.docker.com | sh \
     && sudo systemctl --now enable docker
 
-# Add $(whoami) to Docker Group
-echo "Adding $(whoami) to Docker Group..."
-sudo usermod -aG docker $(whoami)
+# Add the user named $(whoami) to the Docker Group
+if [ ! "$enable_rootless_docker" = "true" ]; then
+    echo "Adding the user named $(whoami) to the Docker Group..."
+    sudo usermod -aG docker $(whoami)
+fi
 
 # Setup Docker in Rootless Mode
-if $ENABLE_ROOTLESS_DOCKER; then
+if [ "$enable_rootless_docker" = "true" ]; then
     echo "Setting up Docker in Rootless Mode..."
     /usr/bin/dockerd-rootless-setuptool.sh install
 fi
 
 # Install the NVIDIA Container Toolkit
 echo "Installing the NVIDIA Container Toolkit..."
-DISTRIBUTION=$(. /etc/os-release;echo $ID$VERSION_ID)
+distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
 curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor --yes -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg \
-    && curl -s -L https://nvidia.github.io/libnvidia-container/$DISTRIBUTION/nvidia-container-toolkit.list | \
+    && curl -s -L https://nvidia.github.io/libnvidia-container/$distribution/nvidia-container-toolkit.list | \
     sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | \
     sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
 sudo apt-get update
@@ -109,7 +111,7 @@ echo "Restarting Docker to Apply NVIDIA Container Runtime Configuration..."
 sudo systemctl restart docker
 
 # Configure the NVIDIA Container Runtime for Docker to Run in Rootless Mode
-if $ENABLE_ROOTLESS_DOCKER; then
+if [ "$enable_rootless_docker" = "true" ]; then
     echo "Configuring the NVIDIA Container Runtime for Docker to Run in Rootless Mode..."
     nvidia-ctk runtime configure --runtime=docker --config=$HOME/.config/docker/daemon.json
     systemctl --user restart docker
@@ -117,8 +119,8 @@ if $ENABLE_ROOTLESS_DOCKER; then
 fi
 
 # Enable System Startup for Rootless Docker
-if $ENABLE_ROOTLESS_DOCKER; then
-    if $ENABLE_SYSTEM_STARTUP_FOR_ROOTLESS_DOCKER; then
+if [ "$enable_rootless_docker" = "true" ]; then
+    if [ "$enable_system_startup_for_rootless_docker" = "true" ]; then
         echo "Enabling System Startup for Rootless Docker..."
         systemctl --user enable docker
         sudo loginctl enable-linger $(whoami)

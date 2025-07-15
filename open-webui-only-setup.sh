@@ -9,22 +9,32 @@
 # Setup the Script Variables
 echo "Setting up the Script Variables..."
 set -o nounset
-TARGET_HOST=127.0.0.1
-OPEN_WEBUI_DEFAULT_MODEL="Private AI Model"
-OPEN_WEBUI_CONTAINER_IMAGE="ghcr.io/open-webui/open-webui:cuda"
-OPEN_WEBUI_CONTAINER_HOST_PORT=3000
-OPEN_WEBUI_CONTAINER_SPECIFIC_TARGET_HOST="host.docker.internal"
-STOP_AND_REMOVE_PREEXISTING_PRIVATE_AI_CONTAINERS=true
+target_host=127.0.0.1
+open_webui_default_model="Private AI Model"
+open_webui_container_image="ghcr.io/open-webui/open-webui:cuda"
+open_webui_container_host_port=3000
+open_webui_container_specific_target_host="host.docker.internal"    # If using Rootless Docker, this value may need to be changed to the actual target host IP address.
+stop_and_remove_preexisting_private_ai_containers=true
 
 # Start the Open WebUI Only Setup
 echo "Starting the Open WebUI Only Setup..."
 
 # Stop and Remove Preexisting Private AI Containers
-if $STOP_AND_REMOVE_PREEXISTING_PRIVATE_AI_CONTAINERS; then
+private_ai_containers=("open-webui-1" "vllm-chat-model-1" "vllm-chat-model-2" "sglang-vision-model-1" "vllm-reasoning-model-1" "sd-webui-forge-1")
+if [ "$stop_and_remove_preexisting_private_ai_containers" = "true" ]; then
     echo "Stopping Preexisting Private AI Containers..."
-    sudo docker stop open-webui-1 vllm-chat-model-1 vllm-chat-model-2 sglang-vision-model-1 vllm-reasoning-model-1 sd-webui-forge-1 2>/dev/null
+    if docker info -f "{{println .SecurityOptions}}" 2>/dev/null | grep -q rootless; then
+        docker stop "${private_ai_containers[@]}" 2>/dev/null
+    else
+        sudo docker stop "${private_ai_containers[@]}" 2>/dev/null
+    fi
+
     echo "Removing Preexisting Private AI Containers..."
-    sudo docker rm open-webui-1 vllm-chat-model-1 vllm-chat-model-2 sglang-vision-model-1 vllm-reasoning-model-1 sd-webui-forge-1 2>/dev/null
+    if docker info -f "{{println .SecurityOptions}}" 2>/dev/null | grep -q rootless; then
+        docker rm "${private_ai_containers[@]}" 2>/dev/null
+    else
+        sudo docker rm "${private_ai_containers[@]}" 2>/dev/null
+    fi
 fi
 
 # Pause for clearing of the GPU vRAM
@@ -33,24 +43,32 @@ sleep 5
 
 # Setup the Open WebUI Container
 echo "Setting up the Open WebUI Container..."
-sudo docker run -d \
-    --name open-webui-1 \
-    -p $OPEN_WEBUI_CONTAINER_HOST_PORT:8080 \
-    --gpus all \
-    -e WEBUI_AUTH="false" \
-    -e WEBUI_NAME="Private AI" \
-    -e OPENAI_API_BASE_URLS="" \
-    -e OPENAI_API_KEY="" \
-    -e DEFAULT_MODELS="$OPEN_WEBUI_DEFAULT_MODEL" \
-    -e RAG_EMBEDDING_MODEL="sentence-transformers/paraphrase-MiniLM-L6-v2" \
-    -e ENABLE_OLLAMA_API="false" \
-    --add-host=host.docker.internal:host-gateway \
-    -v open-webui:/app/backend/data \
-    --restart always \
-    $OPEN_WEBUI_CONTAINER_IMAGE
+open_webui_container_args_base=(
+    -d
+    --name open-webui-1
+    -p $open_webui_container_host_port:8080
+    --gpus all
+    -e WEBUI_AUTH="false"
+    -e WEBUI_NAME="Private AI"
+    -e OPENAI_API_BASE_URLS=""
+    -e OPENAI_API_KEY=""
+    -e DEFAULT_MODELS="$open_webui_default_model"
+    -e RAG_EMBEDDING_MODEL="sentence-transformers/paraphrase-MiniLM-L6-v2"
+    -e ENABLE_OLLAMA_API="false"
+    --add-host=host.docker.internal:host-gateway
+    -v open-webui:/app/backend/data
+    --restart always
+    $open_webui_container_image
+)
+if docker info -f "{{println .SecurityOptions}}" 2>/dev/null | grep -q rootless; then
+    docker run "${open_webui_container_args_base[@]}"
+else
+    sudo docker run "${open_webui_container_args_base[@]}"
+fi
+
 if [[ $? -eq 0 ]]; then
     sleep 20
-    echo "The Open WebUI Container has Started. The Private AI Interface Is Now Available At http://$TARGET_HOST:$OPEN_WEBUI_CONTAINER_HOST_PORT"
+    echo "The Open WebUI Container has Started. The Private AI Interface Is Now Available At http://$target_host:$open_webui_container_host_port"
 else
     echo "ERROR: The Open WebUI Container Failed to Start!"
     exit 1
