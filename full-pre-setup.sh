@@ -233,7 +233,7 @@ mkdir -p $HOME/ai_models/stable_diffusion/extensions
 
 # Update the Permissions of the 'stable_diffusion' Folder
 echo "Updating the Permissions of the 'stable_diffusion' Folder..."
-sudo chmod -R a+w $HOME/ai_models/stable_diffusion
+sudo chmod -R a+rw $HOME/ai_models/stable_diffusion
 
 # Download the AI Image Generation Models
 echo "Downloading the AI Image Generation Models..."
